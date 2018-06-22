@@ -1,0 +1,3 @@
+= retrofit-okhttp-accounting
+
+Leverage Retrofit 2 call adapter factory infrastructure and OkHttp analytics API to log _paramterized_ paths.
