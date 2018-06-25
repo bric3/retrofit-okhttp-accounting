@@ -1,3 +1,38 @@
 = retrofit-okhttp-accounting
 
 Leverage Retrofit 2 call adapter factory infrastructure and OkHttp analytics API to log _paramterized_ paths.
+
+This solution that can capture annotations and store them in the request _tag_, these annotations
+can be read in the `EventListener`, this approach allows have monitoring per target endpoint.
+
+
+What I don't like with this solution is that, this a quite hacky one
+
+1. The `Call` wrapper is relying on the fact that calling `.request()` on the actual `call` before executing
+   or enqueuing the call will return the request that will be used in this operations, it could be a copy
+   for example, since the object is _almost immutable this is probably unlikely but given that _tag_ can
+   be a mutable object I don't know if that is a lasting approach.
+
+2. The `tag` type is `Object` and has _self_ (the request itself) value by default; so the `Call` wrapper
+   has to cast the `tag` to the needed type, and the value has to be set at the request creation time
+   because a `Request` is immutable. Currently this is done in the `CallFactory`, where the request is
+   modified with a builder then passed to ok http client. Design wise that's wrong, that's splitting
+   concerns in different places. What if the `tag` has to be used for something else.
+
+3. OkHttp `Request` builder documents the `tag` as way to cancel the request. I'm not sure how this is
+   used, but using `tag` to achieve accounting or monitoring feels like a misappropriate use of the `tag`.
++
+> Attaches {@code tag} to the request. It can be used later to cancel the request. If the tag is unspecified
+or null, the request is canceled by using the request itself as the tag.
+
+I think this would be very welcome improvement in both retrofit and okhttp to have this kind of feature.
+I would like a simpler approach without having to rely on a `CallAdapterFactory` and a custom `CalFactory`
+
+1. OkHttp' request could benefit from a field dedicated to contextual information.
+
+2. Retrofit should have a request factory, or some kind of _request customizer_, or _request context
+   customizer_, that could be leveraged with interface methods annotations like `@DELETE`.
+
+
+Notice the object (`RequestMetadata`) that is the place holder for metadata, it is set in the `tag` field
+of the request, this class is designed to be _mutable until read_.
