@@ -76,10 +76,10 @@ public class AccountableCallAdapterFactory extends Factory {
             this.call = call;
             this.requestMetadata = requestMetadata;
             taggedRequest = Suppliers.memoize(() -> {
-                Request request = call.request();
-                RequestMetadata tag = (RequestMetadata) request.tag();
-                tag.setFrom(requestMetadata);
-                return request;
+                call.request()
+                    .tag(RequestMetadata.class)
+                    .setFrom(requestMetadata);
+                return call.request();
             });
         }
 

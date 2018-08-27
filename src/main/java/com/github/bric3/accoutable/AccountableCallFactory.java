@@ -8,14 +8,14 @@ public class AccountableCallFactory {
     OkHttpClient ok = new OkHttpClient.Builder().eventListener(new EventListener() {
         @Override
         public void callStart(okhttp3.Call call) {
-            RequestMetadata tag = (RequestMetadata) call.request().tag();
-            System.out.printf("Captured start of : %s", tag);
+            System.out.printf("Captured start of : %s",
+                              call.request().tag(RequestMetadata.class));
         }
     }).build();
 
     public okhttp3.Call newCall(Request request) {
         return ok.newCall(request.newBuilder()
-                                 .tag(RequestMetadata.placeHolder())
+                                 .tag(RequestMetadata.class, RequestMetadata.placeHolder())
                                  .build());
     }
 }
