@@ -1,4 +1,4 @@
-package com.github.bric3.accoutable;
+package com.github.bric3.accountable;
 
 import okhttp3.Request;
 import retrofit2.Call;

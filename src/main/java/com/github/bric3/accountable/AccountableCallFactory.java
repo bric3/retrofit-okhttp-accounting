@@ -1,4 +1,4 @@
-package com.github.bric3.accoutable;
+package com.github.bric3.accountable;
 
 import okhttp3.EventListener;
 import okhttp3.OkHttpClient;

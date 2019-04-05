@@ -1,7 +1,7 @@
 package com.github.bric3;
 
-import com.github.bric3.accoutable.AccountableCallAdapterFactory;
-import com.github.bric3.accoutable.AccountableCallFactory;
+import com.github.bric3.accountable.AccountableCallAdapterFactory;
+import com.github.bric3.accountable.AccountableCallFactory;
 import okhttp3.ResponseBody;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;

@@ -1,4 +1,4 @@
-package com.github.bric3.accoutable;
+package com.github.bric3.accountable;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
