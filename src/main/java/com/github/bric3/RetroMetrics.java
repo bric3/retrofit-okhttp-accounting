@@ -21,7 +21,7 @@ public class RetroMetrics {
 
         Retrofit retrofit = new Builder().baseUrl(mockWebServer.url("/"))
                                          .addCallAdapterFactory(new AccountableCallAdapterFactory())
-                                         .callFactory(new AccountableCallFactory()::newCall)
+                                         .callFactory(new AccountableCallFactory())
                                          .build();
 
 
